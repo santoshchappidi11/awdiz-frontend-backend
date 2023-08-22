@@ -1,0 +1,82 @@
+#register-screen {
+  height: 100vh;
+  width: 100%;
+  /* border: 1px solid black; */
+}
+
+#register-screen > form {
+  width: 45%;
+  margin: auto;
+  margin-top: 100px;
+  padding: 25px 0;
+  border-radius: 5px;
+  border: 1px solid rgb(116, 116, 116);
+}
+
+#register-screen > form > #register-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid black; */
+}
+
+#register-screen > form > #register-header > h2 {
+  font-size: 28px;
+  margin: 15px 0;
+}
+
+#register-screen > form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#register-screen > form > .fields {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  height: 40px;
+  /* border: 1px solid black; */
+}
+
+#register-screen > form > .fields > label {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+#register-screen > form > .fields > input {
+  height: 95%;
+  width: 58%;
+  outline: none;
+}
+
+#register-screen > form > .roles > select {
+  height: 28px;
+  width: 80px;
+  border: none;
+  background: none;
+  border-radius: 2px;
+  font-weight: 500;
+  font-size: 16px;
+  outline: none;
+  cursor: pointer;
+  color: black;
+  /* background-color: rgb(59, 158, 190); */
+  border: 1px solid rgb(150, 150, 150);
+}
+
+#register-screen > form > button {
+  border: none;
+  background: none;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 5px;
+  margin: 15px 0;
+  padding: 4px 22px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(59, 158, 190);
+}
