@@ -76,14 +76,14 @@ export const getCurrentUser = async (req, res) => {
     if (!token)
       return res
         .status(404)
-        .json({ status: "error", message: "Token is required!" });
+        .json({ success: false, message: "Token is required!" });
 
     const decodedData = jwt.verify(token, process.env.JWT_SECRET);
 
     if (!decodedData)
       return res
         .status(404)
-        .json({ status: "error", message: "Not a valid json token!" });
+        .json({ success: false, message: "Not a valid json token!" });
 
     // return res.send(decodedData);
 
@@ -94,7 +94,7 @@ export const getCurrentUser = async (req, res) => {
     if (!user)
       return res
         .status(404)
-        .json({ status: "error", message: "User not found!" });
+        .json({ success: false, message: "User not found!" });
 
     const userObj = {
       name: user?.name,
@@ -102,8 +102,8 @@ export const getCurrentUser = async (req, res) => {
       _id: user?._id,
     };
 
-    return res.status(200).json({ status: "Success", user: userObj });
+    return res.status(200).json({ success: true, user: userObj });
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error });
+    return res.status(500).json({ success: false, message: error });
   }
 };

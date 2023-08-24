@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
@@ -6,9 +6,15 @@ import axios from "axios";
 import { AuthContexts } from "../../Context/AuthContext";
 
 const Login = () => {
-  const { Login } = useContext(AuthContexts);
+  const {state, Login } = useContext(AuthContexts);
   const navigateTo = useNavigate();
   const [userData, setUserData] = useState({ email: "", password: "" });
+
+    useEffect(() => {
+    if (state?.currentUser?.name) {
+      navigateTo("/");
+    }
+  }, [state, navigateTo]);
 
   const handleChangeValues = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -27,7 +33,7 @@ const Login = () => {
         setUserData({ email: "", password: "" });
         toast.success(response.data.message);
         navigateTo("/");
-        console.log(response.data);
+        // console.log(response.data);
       } else {
         toast.error(response.data.message);
       }

@@ -6,6 +6,29 @@
   /* border: 1px solid black; */
 }
 
-#home-screen > h2 {
+#home-screen > #home {
+  height: auto;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  /* border: 1px solid black; */
+}
+
+#home-screen > #home > h2 {
   margin: 50px 0 0 0;
+}
+
+#home-screen > #home > button {
+  border: none;
+  background: none;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 5px;
+  margin: 15px 0;
+  padding: 4px 22px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(59, 158, 190);
 }

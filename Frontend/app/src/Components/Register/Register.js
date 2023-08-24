@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import axios from "axios";
+import { AuthContexts } from "../../Context/AuthContext";
 
 const Register = () => {
+  const { state } = useContext(AuthContexts);
   const navigateTo = useNavigate();
 
   const [userData, setUserData] = useState({
@@ -14,6 +16,12 @@ const Register = () => {
     confirmPassword: "",
     role: "Buyer",
   });
+
+  useEffect(() => {
+    if (state?.currentUser?.name) {
+      navigateTo("/");
+    }
+  }, [state, navigateTo]);
 
   const handleChangeValues = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
