@@ -99,6 +99,7 @@ export const getCurrentUser = async (req, res) => {
     const userObj = {
       name: user?.name,
       email: user?.email,
+      role: user?.role,
       _id: user?._id,
     };
 

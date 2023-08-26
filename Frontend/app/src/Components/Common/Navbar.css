@@ -1,0 +1,42 @@
+#navbar {
+  height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  border: 1px solid black;
+}
+
+#navbar > #logo {
+  height: auto;
+  width: 10%;
+  cursor: pointer;
+  /* border: 1px solid black; */
+}
+
+#navbar > #nav-items {
+  /* width: 50%; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px solid black; */
+}
+
+#navbar > #nav-items > h4 {
+  cursor: pointer;
+  margin: 0 15px;
+}
+
+#navbar > #nav-right {
+  /* width: 20%; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px solid black; */
+}
+
+#navbar > #nav-right > h4 {
+  cursor: pointer;
+  margin: 0 10px;
+}

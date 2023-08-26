@@ -4,19 +4,20 @@ import UserModel from "../Models/User.model.js";
 
 export const addProduct = async (req, res) => {
   try {
-    const { image, name, price, category, token } = req.body;
+    const { image, name, price, category } = req.body.addProductData;
+    const { token } = req.body;
 
     if (!image || !name || !price || !category || !token)
       return res
         .status(404)
-        .json({ status: "error", message: "All fields are mandatory!" });
+        .json({ success: false, message: "All fields are mandatory!" });
 
     const decodedData = jwt.verify(token, process.env.JWT_SECRET);
 
     if (!decodedData)
       return res
         .status(404)
-        .json({ status: "error", message: "Token not valid!" });
+        .json({ success: false, message: "Token not valid!" });
 
     const userId = decodedData.userId;
 
@@ -31,9 +32,9 @@ export const addProduct = async (req, res) => {
 
     return res
       .status(201)
-      .json({ status: "success", message: "Product added successfully!" });
+      .json({ success: true, message: "Product added successfully!" });
   } catch (error) {
-    return res.status(500).json({ status: "error", error: error.message });
+    return res.status(500).json({ success: false, error: error.message });
   }
 };
 
@@ -42,11 +43,11 @@ export const allProducts = async (req, res) => {
     const products = await ProductModel.find({});
 
     if (products.length) {
-      return res.status(200).json({ status: "success", products: products });
+      return res.status(200).json({ success: true, products: products });
     }
-    return res.status(404).json({ status: "error", message: "No Products!" });
+    return res.status(404).json({ success: false, message: "No Products!" });
   } catch (error) {
-    return res.status(500).json({ status: "error", error: error.message });
+    return res.status(500).json({ success: false, error: error.message });
   }
 };
 
@@ -58,20 +59,20 @@ export const getYourProducts = async (req, res) => {
     if (!decodedData)
       return res
         .status(404)
-        .json({ status: "error", message: "Not a valid token!" });
+        .json({ success: false, message: "Not a valid token!" });
 
     const userId = decodedData.userId;
 
     const products = await ProductModel.find({ userId: userId });
 
     if (products.length)
-      return res.status(200).json({ status: "success", products: products });
+      return res.status(200).json({ success: true, products: products });
 
     return res
       .status(404)
-      .json({ status: "error", message: "No Products Found!" });
+      .json({ success: false, message: "No Products Found!" });
   } catch (error) {
-    return res.status(500).json({ status: "error", error: error.message });
+    return res.status(500).json({ success: false, error: error.message });
   }
 };
 
