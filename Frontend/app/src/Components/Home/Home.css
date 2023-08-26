@@ -17,7 +17,7 @@
 }
 
 #home-screen > #home > h2 {
-  margin: 50px 0 0 0;
+  margin: 10px 0 0 0;
 }
 
 #home-screen > #home > button {
@@ -31,4 +31,52 @@
   cursor: pointer;
   color: white;
   background-color: rgb(59, 158, 190);
+}
+
+#home-screen > #home > #products {
+  height: auto;
+  width: 90%;
+  margin: auto;
+  margin: 50px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  /* border: 1px solid black; */
+}
+
+#home-screen > #home > #products > .product {
+  width: 18%;
+  height: auto;
+  margin: 20px 0;
+  border-radius: 5px;
+  border: 1px solid rgb(190, 190, 190);
+}
+
+#home-screen > #home > #products > .product > .image {
+  height: 200px;
+  width: 100%;
+  /* border: 1px solid black; */
+}
+
+#home-screen > #home > #products > .product > .image > img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+#home-screen > #home > #products > .product > .details {
+  width: 100%;
+  padding: 5px 20px 10px 20px;
+  /* border: 1px solid black; */
+}
+
+#home-screen > #home > #products > .product > .details > h2 {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+#home-screen > #home > #products > .product > .details > h3 {
+  font-weight: 600;
+  color: rgb(39, 39, 39);
 }

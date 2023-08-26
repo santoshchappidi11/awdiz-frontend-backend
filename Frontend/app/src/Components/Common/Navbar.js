@@ -24,7 +24,7 @@ const Navbar = () => {
         {state?.currentUser?.role == "Seller" && (
           <>
             <h4 onClick={() => navigateTo("/add-product")}>Add Product</h4>
-            <h4 onClick={() => navigateTo("/your-products")}>Your Product</h4>
+            <h4 onClick={() => navigateTo("/your-products")}>Your Products</h4>
           </>
         )}
       </div>
@@ -32,7 +32,7 @@ const Navbar = () => {
         {state?.currentUser?.name ? (
           <>
             <p>
-              Hi {state?.currentUser?.name}({state?.currentUser?.role})
+              Hi {state?.currentUser?.name?.toUpperCase()}({state?.currentUser?.role})
             </p>
             <h4>Profile</h4>
             {state?.currentUser?.role == "Buyer" && <h4>Cart</h4>}

@@ -4,10 +4,22 @@
   /* border: 1px solid black; */
 }
 
+#your-product-screen > #header {
+  width: 100%;
+  text-align: center;
+  /* border: 1px solid black; */
+}
+
+#your-product-screen > #header > h2 {
+  font-weight: 600;
+  margin: 10px 0;
+}
+
 #your-product-screen > #products {
   height: auto;
   width: 90%;
   margin: auto;
+  margin: 50px 0;
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
@@ -35,6 +47,16 @@
 
 #your-product-screen > #products > .product > .details {
   width: 100%;
-  padding: 0 20px 10px 20px;
+  padding: 5px 20px 10px 20px;
   /* border: 1px solid black; */
+}
+
+#your-product-screen > #products > .product > .details > h2 {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+#your-product-screen > #products > .product > .details > h3 {
+  font-weight: 600;
+  color: rgb(39, 39, 39);
 }

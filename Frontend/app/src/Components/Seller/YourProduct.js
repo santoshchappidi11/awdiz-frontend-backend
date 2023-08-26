@@ -26,6 +26,9 @@ const YourProduct = () => {
   return (
     <SellerProtected>
       <div id="your-product-screen">
+        <div id="header">
+          <h2>Your Products</h2>
+        </div>
         <div id="products">
           {allProducts?.length ? (
             allProducts.map((product) => (
