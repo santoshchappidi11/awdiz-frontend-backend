@@ -7,6 +7,9 @@ import {
   Login,
   Register,
   getCurrentUser,
+  getUserNumber,
+  sendOtp,
+  verifyOtp,
 } from "./Controllers/User.controller.js";
 import {
   addComments,
@@ -54,24 +57,19 @@ app.get("/", (req, res) => {
 });
 
 app.post("/register", Register);
-
 app.post("/login", Login);
-
 app.post("/get-current-user", getCurrentUser);
-
+app.post("/get-user-number", getUserNumber);
+app.post("/send-otp", sendOtp);
+app.post("/verify-otp", verifyOtp);
 app.post("/add-product", checkSeller, addProduct);
-
 app.get("/all-products", allProducts);
-
 app.post("/get-your-products", checkSeller, getYourProducts);
-
 app.patch("/update-your-product", checkSeller, updateYourProduct);
 app.delete("/delete-your-product", checkSeller, deleteYourProduct);
-
 app.post("/add-to-cart", addToCart);
 app.get("/get-cart-products", getCartProducts);
 app.delete("/remove-cart-product", removeCartProduct);
-
 app.post("/add-to-wishlist", addToWishlist);
 app.get("/get-wishlist-products", getWishlistProducts);
 

@@ -12,6 +12,7 @@ const Register = () => {
   const [userData, setUserData] = useState({
     name: "",
     email: "",
+    number: "",
     password: "",
     confirmPassword: "",
     role: "Buyer",
@@ -33,6 +34,7 @@ const Register = () => {
     if (
       userData.name &&
       userData.email &&
+      userData.number &&
       userData.password &&
       userData.confirmPassword &&
       userData.role
@@ -46,6 +48,7 @@ const Register = () => {
           setUserData({
             name: "",
             email: "",
+            number: "",
             password: "",
             confirmPassword: "",
             role: "Buyer",
@@ -85,6 +88,15 @@ const Register = () => {
             type="email"
             name="email"
             value={userData.email}
+            onChange={handleChangeValues}
+          />
+        </div>
+        <div className="fields">
+          <label>Contact Number:</label>
+          <input
+            type="number"
+            name="number"
+            value={userData.number}
             onChange={handleChangeValues}
           />
         </div>

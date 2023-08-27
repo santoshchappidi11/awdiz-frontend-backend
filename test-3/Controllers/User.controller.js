@@ -1,11 +1,12 @@
 import UserModel from "../Models/User.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { sendTwilioMessage } from "../helpers/Sms.js";
 
 export const Register = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body.userData;
-    if (!name || !email || !password || !role)
+    const { name, email, password, role, number } = req.body.userData;
+    if (!name || !email || !password || !role || !number)
       return res.json({ success: false, message: "All fields are required!" });
 
     const isEmailExist = await UserModel.find({ email: email });
@@ -18,7 +19,13 @@ export const Register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = new UserModel({ name, email, password: hashedPassword, role });
+    const user = new UserModel({
+      name,
+      email,
+      password: hashedPassword,
+      role,
+      number,
+    });
     await user.save();
     return res.json({
       success: true,
@@ -104,6 +111,102 @@ export const getCurrentUser = async (req, res) => {
     };
 
     return res.status(200).json({ success: true, user: userObj });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error });
+  }
+};
+
+export const getUserNumber = async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    if (!userId)
+      return res
+        .status(404)
+        .json({ success: false, message: "User Id is required!" });
+
+    const user = await UserModel.findById(userId).select(
+      "number isNumberVerified"
+    );
+
+    if (user)
+      return res.status(200).json({
+        success: true,
+        number: user.number,
+        isNumberVerified: user.isNumberVerified,
+      });
+
+    return res.status(404).json({ success: false, message: "user not found!" });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error });
+  }
+};
+
+export const sendOtp = async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    if (!userId)
+      return res
+        .status(404)
+        .json({ success: false, message: "User Id is required!" });
+
+    const user = await UserModel.findById(userId);
+
+    const otp = "789456";
+    const message = `Hi, ${user?.name} your MotoG52 verification otp is - ${otp} `;
+
+    if (user) {
+      const responseFromTwilio = sendTwilioMessage(user.number, message);
+
+      if (responseFromTwilio) {
+        user.otpForNumberVerification = otp;
+        await user.save();
+        return res.status(200).json({
+          success: true,
+          message: "OTP has been sent to your registered number!",
+        });
+      }
+    }
+
+    return res.status(404).json({ success: false, message: "User not found!" });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error });
+  }
+};
+
+export const verifyOtp = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const { otpNumber } = req.body;
+
+    if (!userId)
+      return res
+        .status(404)
+        .json({ success: false, message: "User Id is required!" });
+
+    if (!otpNumber)
+      return res
+        .status(404)
+        .json({ success: false, message: "OTP number is required!" });
+
+    const user = await UserModel.findById(userId);
+
+    if (user) {
+      if (user.otpForNumberVerification == otpNumber) {
+        return res
+          .status(200)
+          .json({ success: true, message: "OTP verified successfully!" });
+      }
+
+      return res
+        .status(404)
+        .json({ success: false, message: "Not a valid OTP number!" });
+    }
+
+    return res
+      .status(404)
+      .json({ success: false, message: "Not a valid user!" });
   } catch (error) {
     return res.status(500).json({ success: false, message: error });
   }

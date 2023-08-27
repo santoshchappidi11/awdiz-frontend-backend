@@ -18,6 +18,17 @@ const userSchema = new Schema({
     enum: ["Buyer", "Seller", "Admin"],
     default: "Buyer",
   },
+  number: {
+    type: Number,
+    required: true,
+  },
+  isNumberVerified: {
+    type: Boolean,
+    default: false,
+  },
+  otpForNumberVerification: {
+    type: Number,
+  },
   cart: {
     type: [String],
   },

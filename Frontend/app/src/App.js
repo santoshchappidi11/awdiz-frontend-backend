@@ -6,6 +6,7 @@ import Login from "./Components/Login/Login";
 import Navbar from "./Components/Common/Navbar";
 import AddProduct from "./Components/Seller/AddProduct";
 import YourProduct from "./Components/Seller/YourProduct";
+import Profile from "./Components/Profile/Profile";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/login" element={<Login />} />
+        <Route exact path="/profile" element={<Profile />} />
         <Route exact path="/add-product" element={<AddProduct />} />
         <Route exact path="/your-products" element={<YourProduct />} />
       </Routes>
