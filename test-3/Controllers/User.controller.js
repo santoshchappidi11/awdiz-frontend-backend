@@ -58,7 +58,7 @@ export const Login = async (req, res) => {
       const userObject = {
         name: user.name,
         email: user.email,
-        userId: user._id,
+        _id: user._id,
         role: user.role,
       };
 
@@ -108,6 +108,7 @@ export const getCurrentUser = async (req, res) => {
       email: user?.email,
       role: user?.role,
       _id: user?._id,
+      number: user?.number,
     };
 
     return res.status(200).json({ success: true, user: userObj });
@@ -194,9 +195,13 @@ export const verifyOtp = async (req, res) => {
 
     if (user) {
       if (user.otpForNumberVerification == otpNumber) {
-        return res
-          .status(200)
-          .json({ success: true, message: "OTP verified successfully!" });
+        user.isNumberVerified = true;
+        await user.save();
+        return res.status(200).json({
+          success: true,
+          isNumberVerified: user.isNumberVerified,
+          message: "OTP verified successfully!",
+        });
       }
 
       return res

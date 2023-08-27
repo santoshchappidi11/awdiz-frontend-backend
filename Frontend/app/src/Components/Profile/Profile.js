@@ -7,7 +7,9 @@ import { toast } from "react-hot-toast";
 
 const Profile = () => {
   const { state } = useContext(AuthContexts);
-  const [number, setNumber] = useState(0);
+  console.log(state);
+
+  const [number, setNumber] = useState("ex: 123456789");
   const [isNumberVerified, setIsNumberVerified] = useState(false);
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [otpNumber, setOtpNumber] = useState();
@@ -15,62 +17,67 @@ const Profile = () => {
   useEffect(() => {
     const getCurrentUserNumber = async () => {
       try {
-        if (state.currentUser.name) {
-          const response = await axios.post(
-            "http://localhost:8002/get-user-number",
-            {
-              userId: state?.currentUser?._id,
-            }
-          );
-
-          if (response.data.success) {
-            setNumber(response.data.number);
-            setIsNumberVerified(response.data.isNumberVerified);
-          } else {
-            setNumber(0);
+        const response = await axios.post(
+          "http://localhost:8002/get-user-number",
+          {
+            userId: state?.currentUser?._id,
           }
+        );
+
+        if (response.data.success) {
+          setNumber(response.data.number);
+          setIsNumberVerified(response.data.isNumberVerified);
+        } else {
+          setNumber("ex: 123456789");
         }
       } catch (error) {
         console.log(error);
       }
     };
 
-    getCurrentUserNumber();
+    if (state?.currentUser?._id) {
+      getCurrentUserNumber();
+    }
   }, [state]);
 
   const sendOtp = async () => {
-    //     try {
-    //       const response = await axios.post("http://localhost:8002/send-otp", {
-    //         userId: state?.currentUser?._id,
-    //       });
-    //       if (response.data.success) {
-    //         setIsOtpSent(true);
-    //         toast.success("OTP sent to your registered number!");
-    //       } else {
-    //         setIsOtpSent(false);
-    //         // toast.error(response.data.message);
-    //       }
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
+    try {
+      const response = await axios.post("http://localhost:8002/send-otp", {
+        userId: state?.currentUser?._id,
+      });
+      if (response.data.success) {
+        setIsOtpSent(true);
+        toast.success("OTP sent to your registered number!");
+      } else {
+        setIsOtpSent(false);
+        // toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await axios.post("http://localhost:8002/verify-otp", {
-        userId: state?.currentUser?._id,
-        otpNumber,
-      });
+    if (otpNumber) {
+      try {
+        const response = await axios.post("http://localhost:8002/verify-otp", {
+          userId: state?.currentUser?._id,
+          otpNumber,
+        });
 
-      if (response.data.success) {
-        setIsOtpSent(false);
-        setIsNumberVerified(response.data.isNumberVerified);
-        toast.success("OTP is verified!");
+        if (response.data.success) {
+          console.log(response.data);
+          setIsOtpSent(false);
+          setIsNumberVerified(response.data.isNumberVerified);
+          toast.success("OTP is verified!");
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
+    } else {
+      toast.error("Please fill the details!");
     }
   };
 
@@ -84,7 +91,7 @@ const Profile = () => {
 
           <div id="verify-number">
             {isNumberVerified ? (
-              <h3>Your Number Verified</h3>
+              <h3>Your Number has been Verified!</h3>
             ) : (
               <button onClick={sendOtp}>Verify Your Number</button>
             )}

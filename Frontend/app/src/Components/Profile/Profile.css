@@ -43,6 +43,12 @@
   /* border: 1px solid black; */
 }
 
+#profile-screen > #profile > #verify-number > h3 {
+  color: rgb(3, 177, 3);
+  font-weight: 600;
+  font-size: 22px;
+}
+
 #profile-screen > #profile > #verify-number > button {
   border: none;
   background: none;
@@ -52,7 +58,7 @@
   padding: 5px 22px;
   cursor: pointer;
   color: white;
-  background-color: rgb(59, 158, 190);
+  background-color: orangered;
 }
 
 #profile-screen > #profile > #verify-number > form {

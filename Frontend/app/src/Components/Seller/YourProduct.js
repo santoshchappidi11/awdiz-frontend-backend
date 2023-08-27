@@ -32,7 +32,7 @@ const YourProduct = () => {
         <div id="products">
           {allProducts?.length ? (
             allProducts.map((product) => (
-              <div className="product">
+              <div className="product" key={product._id}>
                 <div className="image">
                   <img src={product.image} alt="product" />
                 </div>
