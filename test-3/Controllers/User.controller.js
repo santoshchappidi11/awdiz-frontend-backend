@@ -1,6 +1,7 @@
 import UserModel from "../Models/User.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { v4 as uuidv4 } from "uuid";
 import { sendTwilioMessage } from "../helpers/Sms.js";
 
 export const Register = async (req, res) => {
@@ -154,12 +155,13 @@ export const sendOtp = async (req, res) => {
 
     const user = await UserModel.findById(userId);
 
-    const otp = "789456";
-    const message = `Hi, ${user?.name} your MotoG52 verification otp is - ${otp} `;
+    const randomAlphaNumeric = uuidv4();
+    const otp = randomAlphaNumeric.toUpperCase().slice(0, 6);
+    const message = `Hi, ${user?.name} your E-Commerce verification otp is - ${otp} `;
 
     if (user) {
       const responseFromTwilio = sendTwilioMessage(user.number, message);
-
+      console.log(responseFromTwilio);
       if (responseFromTwilio) {
         user.otpForNumberVerification = otp;
         await user.save();

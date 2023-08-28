@@ -27,7 +27,7 @@ const userSchema = new Schema({
     default: false,
   },
   otpForNumberVerification: {
-    type: Number,
+    type: String,
   },
   cart: {
     type: [String],

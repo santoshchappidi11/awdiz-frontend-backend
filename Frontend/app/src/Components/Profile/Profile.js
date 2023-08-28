@@ -99,7 +99,7 @@ const Profile = () => {
             {isOtpSent && (
               <form onSubmit={handleVerifyOtp}>
                 <input
-                  type="number"
+                  type="text"
                   placeholder="Enter Your OTP"
                   onChange={(e) => setOtpNumber(e.target.value)}
                 />
