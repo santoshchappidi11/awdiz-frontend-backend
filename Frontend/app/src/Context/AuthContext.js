@@ -1,6 +1,7 @@
 import { createContext, useEffect, useReducer } from "react";
 import { toast } from "react-hot-toast";
-import axios from "axios";
+import api from "../Components/ApiConfig/index";
+// import axios from "axios";
 
 export const AuthContexts = createContext();
 
@@ -43,19 +44,23 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const getCurrentUser = async () => {
       const token = JSON.parse(localStorage.getItem("Token"));
-      if (token?.length) {
-        const response = await axios.post(
-          "http://localhost:8002/get-current-user",
-          { token }
-        );
 
-        if (response.data.success) {
-          dispatch({
-            type: "LOGIN",
-            payload: response.data.user,
-          });
-        } else {
-          toast.error(response.data.message);
+      if (token) {
+        try {
+          const response = await api.post("/get-current-user", { token });
+          if (response.data.success) {
+            dispatch({
+              type: "LOGIN",
+              payload: response.data.user,
+            });
+          } else {
+            toast.error(response.data.message);
+          }
+        } catch (error) {
+          // dispatch({
+          //   type: "LOGOUT",
+          // });
+          console.log(error);
         }
       }
     };

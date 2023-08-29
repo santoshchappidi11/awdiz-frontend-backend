@@ -1,9 +1,10 @@
-import axios from "axios";
+// import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import SellerProtected from "../Common/SellerProtected";
-import "./AddProduct.css"
+import "./AddProduct.css";
+import api from "../ApiConfig/index";
 
 const AddProduct = () => {
   const navigateTo = useNavigate();
@@ -30,7 +31,7 @@ const AddProduct = () => {
     ) {
       const token = JSON.parse(localStorage.getItem("Token"));
       try {
-        const response = await axios.post("http://localhost:8002/add-product", {
+        const response = await api.post("/add-product", {
           addProductData,
           token,
         });

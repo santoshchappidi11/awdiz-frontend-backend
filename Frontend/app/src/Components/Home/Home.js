@@ -1,25 +1,28 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Home.css";
-import { useNavigate } from "react-router-dom";
-import { AuthContexts } from "../../Context/AuthContext";
-import axios from "axios";
+// import { useNavigate } from "react-router-dom";
+// import { AuthContexts } from "../../Context/AuthContext";
+// import axios from "axios";
+import api from "../ApiConfig/index";
+import { toast } from "react-hot-toast";
 
 const Home = () => {
-  // const { state, Logout } = useContext(AuthContexts);
-  // const navigateTo = useNavigate();
   const [allProducts, setAllProducts] = useState([]);
 
   useEffect(() => {
     const getYourProducts = async () => {
-      // const token = JSON.parse(localStorage.getItem("Token"));
-
-      const response = await axios.get("http://localhost:8002/all-products");
-
-      if (response.data.success) {
-        setAllProducts(response.data.products);
+      try {
+        const response = await api.get("/all-products");
+        console.log(response.data);
+        if (response.data.success) {
+          setAllProducts(response.data.products);
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error(error.response.data.message);
       }
     };
-
     getYourProducts();
   }, []);
 
@@ -30,7 +33,7 @@ const Home = () => {
         <p>All Products</p>
         <div id="products">
           {allProducts?.length ? (
-            allProducts.map((product) => (
+            allProducts?.map((product) => (
               <div className="product" key={product._id}>
                 <div className="image">
                   <img src={product.image} alt="product" />

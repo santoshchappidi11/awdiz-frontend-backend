@@ -21,7 +21,7 @@ export const addToCart = async (req, res) => {
 
     return res.status(200).json({ success: true, user: user });
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error });
+    return res.status(500).json({ success: false, message: error });
   }
 };
 
@@ -52,7 +52,7 @@ export const getCartProducts = async (req, res) => {
 
     throw new Error("User not found!");
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error });
+    return res.status(500).json({ success: false, message: error });
   }
 };
 
@@ -84,7 +84,7 @@ export const removeCartProduct = async (req, res) => {
 
     // throw new Error("Not a valid user to remove product!");
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error });
+    return res.status(500).json({ success: false, message: error });
   }
 };
 
@@ -107,7 +107,7 @@ export const addToWishlist = async (req, res) => {
 
     return res.status(200).json({ success: true, user: user });
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error });
+    return res.status(500).json({ success: false, message: error });
   }
 };
 
@@ -138,6 +138,6 @@ export const getWishlistProducts = async (req, res) => {
 
     throw new Error("User not found!");
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error });
+    return res.status(500).json({ success: false, message: error });
   }
 };

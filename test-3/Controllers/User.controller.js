@@ -63,7 +63,12 @@ export const Login = async (req, res) => {
         role: user.role,
       };
 
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+      const expiryTime = user?.role == "Seller" ? "4h" : "1h";
+
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+        expiresIn: expiryTime,
+      });
+
       return res.json({
         success: true,
         message: "Login successfull",
@@ -161,7 +166,7 @@ export const sendOtp = async (req, res) => {
 
     if (user) {
       const responseFromTwilio = sendTwilioMessage(user.number, message);
-      console.log(responseFromTwilio);
+      // console.log(responseFromTwilio);
       if (responseFromTwilio) {
         user.otpForNumberVerification = otp;
         await user.save();

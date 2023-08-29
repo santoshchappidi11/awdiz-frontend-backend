@@ -40,14 +40,23 @@ export const addProduct = async (req, res) => {
 
 export const allProducts = async (req, res) => {
   try {
+    // const headersWithToken = req.headers.authorization;
+    // if (headersWithToken) {
+    //   console.log(headersWithToken, "-HEADERS here");
+    //   const token = headersWithToken.split(" ")[1];
+    //   if (token) {
+    //     console.log(token, "-TOKEN here");
+    //   }
+    // }
+
     const products = await ProductModel.find({});
 
-    if (products.length) {
+    if (products?.length) {
       return res.status(200).json({ success: true, products: products });
     }
     return res.status(404).json({ success: false, message: "No Products!" });
   } catch (error) {
-    return res.status(500).json({ success: false, error: error.message });
+    return res.status(500).json({ success: false, error: error });
   }
 };
 
@@ -83,14 +92,14 @@ export const updateYourProduct = async (req, res) => {
     if (!token)
       return res
         .status(404)
-        .json({ status: "error", message: "Token is required" });
+        .json({ success: false, message: "Token is required" });
 
     const decodedData = jwt.verify(token, process.env.JWT_SECRET);
 
     if (!decodedData)
       return res
         .status(404)
-        .json({ status: "error", message: "Not a valid token!" });
+        .json({ success: false, message: "Not a valid token!" });
 
     const userId = decodedData.userId;
 
@@ -101,16 +110,14 @@ export const updateYourProduct = async (req, res) => {
     );
 
     if (updatedProduct)
-      return res
-        .status(200)
-        .json({ status: "success", product: updatedProduct });
+      return res.status(200).json({ success: true, product: updatedProduct });
 
     return res.status(404).json({
-      status: "error",
+      success: false,
       message: "you are trying to update product which is not yours",
     });
   } catch (error) {
-    return res.status(500).json({ status: "error", error: error.message });
+    return res.status(500).json({ success: false, error: error.message });
   }
 };
 
@@ -136,7 +143,7 @@ export const deleteYourProduct = async (req, res) => {
 
     throw new Error("MongoDB error!");
   } catch (error) {
-    return res.status(500).json({ status: "error", error: error.message });
+    return res.status(500).json({ success: false, error: error.message });
   }
 };
 
@@ -166,7 +173,7 @@ export const addRating = async (req, res) => {
 
     throw new Error("MongoDb error!");
   } catch (error) {
-    return res.status(500).json({ status: "error", message: error });
+    return res.status(500).json({ success: false, message: error });
   }
 };
 
@@ -196,6 +203,6 @@ export const addComments = async (req, res) => {
 
     throw new Error("MongoDb error!");
   } catch (error) {
-    return res.status(500).json({ status: "error", message: "server error" });
+    return res.status(500).json({ success: false, message: "server error" });
   }
 };

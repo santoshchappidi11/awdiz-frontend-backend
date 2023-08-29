@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
 import morgan from "morgan";
+
 import {
   Login,
   Register,
@@ -45,6 +46,7 @@ import {
   unblockProduct,
   verifyProduct,
 } from "./Controllers/Admin.controller.js";
+import CheckJwt from "./Middlewares/CheckJwt.js";
 
 const app = express();
 app.use(express.json());
@@ -55,7 +57,6 @@ app.use(morgan("dev"));
 app.get("/", (req, res) => {
   res.send("working!!!");
 });
-
 app.post("/register", Register);
 app.post("/login", Login);
 app.post("/get-current-user", getCurrentUser);
@@ -63,7 +64,7 @@ app.post("/get-user-number", getUserNumber);
 app.post("/send-otp", sendOtp);
 app.post("/verify-otp", verifyOtp);
 app.post("/add-product", checkSeller, addProduct);
-app.get("/all-products", allProducts);
+app.get("/all-products", CheckJwt, allProducts);
 app.post("/get-your-products", checkSeller, getYourProducts);
 app.patch("/update-your-product", checkSeller, updateYourProduct);
 app.delete("/delete-your-product", checkSeller, deleteYourProduct);

@@ -1,7 +1,9 @@
-import axios from "axios";
+// import axios from "axios";
 import React, { useEffect, useState } from "react";
 import SellerProtected from "../Common/SellerProtected";
 import "./YourProduct.css";
+import api from "../ApiConfig/index";
+import { toast } from "react-hot-toast";
 
 const YourProduct = () => {
   const [allProducts, setAllProducts] = useState([]);
@@ -10,13 +12,17 @@ const YourProduct = () => {
     const getYourProducts = async () => {
       const token = JSON.parse(localStorage.getItem("Token"));
 
-      const response = await axios.post(
-        "http://localhost:8002/get-your-products",
-        { token }
-      );
-
-      if (response.data.success) {
-        setAllProducts(response.data.products);
+      if (token) {
+        try {
+          const response = await api.post("/get-your-products", { token });
+          if (response.data.success) {
+            setAllProducts(response.data.products);
+          } else {
+            toast.error(response.data.message);
+          }
+        } catch (error) {
+          toast.error(error.response.data.message);
+        }
       }
     };
 
