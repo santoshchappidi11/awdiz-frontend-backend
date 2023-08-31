@@ -3,19 +3,21 @@ import UserModel from "../Models/User.model.js";
 
 export const checkSeller = async (req, res, next) => {
   try {
+    console.log(req.body, "req.body here");
     const { token } = req.body;
+    console.log(token, "token here");
 
     if (!token)
       return res
         .status(404)
-        .json({ status: "error", message: "Token is required!" });
+        .json({ success: false, message: "Token is required!" });
 
     const decodedData = jwt.verify(token, process.env.JWT_SECRET);
 
     if (!decodedData)
       return res
         .status(404)
-        .json({ status: "error", message: "Not a valid token!" });
+        .json({ success: false, message: "Not a valid token!" });
 
     const userId = decodedData.userId;
     const user = await UserModel.findById(userId);
@@ -23,11 +25,11 @@ export const checkSeller = async (req, res, next) => {
     if (!user || user.role != "Seller")
       return res
         .status(404)
-        .json({ status: "error", message: "Not a valid user!" });
+        .json({ success: false, message: "Not a valid user!" });
 
     next();
   } catch (error) {
-    res.status(500).json({ status: "error", error: error.message });
+    res.status(500).json({ success: false, error: error.message });
   }
 };
 
@@ -59,7 +61,7 @@ export const checkIsAdmin = async (req, res, next) => {
 
     next();
   } catch (error) {
-    res.status(500).json({ status: "error", error: error.message });
+    res.status(500).json({ success: false, error: error.message });
   }
 };
 
@@ -92,6 +94,6 @@ export const isCheckValidUser = async (req, res, next) => {
 
     next();
   } catch (error) {
-    res.status(500).json({ status: "error", error: error.message });
+    res.status(500).json({ success: false, error: error.message });
   }
 };

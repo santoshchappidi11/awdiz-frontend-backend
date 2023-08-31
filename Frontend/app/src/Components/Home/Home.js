@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Home.css";
 // import { useNavigate } from "react-router-dom";
 // import { AuthContexts } from "../../Context/AuthContext";
@@ -7,6 +7,7 @@ import api from "../ApiConfig/index";
 import { toast } from "react-hot-toast";
 
 const Home = () => {
+  // const { Logout } = useContext(AuthContexts);
   const [allProducts, setAllProducts] = useState([]);
 
   useEffect(() => {

@@ -60,3 +60,19 @@
   font-weight: 600;
   color: rgb(39, 39, 39);
 }
+
+#your-product-screen > #products > .product > .product-btn {
+  width: 100%;
+  padding: 5px 20px 10px 20px;
+  /* border: 1px solid black; */
+}
+
+#your-product-screen > #products > .product > .product-btn > button {
+  border: none;
+  background: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px 15px;
+  margin: 0 8px 0 0;
+  border: 1px solid rgb(56, 56, 56);
+}

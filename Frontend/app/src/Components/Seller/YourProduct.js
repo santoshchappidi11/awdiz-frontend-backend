@@ -4,9 +4,11 @@ import SellerProtected from "../Common/SellerProtected";
 import "./YourProduct.css";
 import api from "../ApiConfig/index";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const YourProduct = () => {
   const [allProducts, setAllProducts] = useState([]);
+  const navigateTo = useNavigate();
 
   useEffect(() => {
     const getYourProducts = async () => {
@@ -29,6 +31,29 @@ const YourProduct = () => {
     getYourProducts();
   }, []);
 
+  const deleteProduct = async (productId) => {
+    const token = JSON.parse(localStorage.getItem("Token"));
+    console.log(token);
+    console.log(productId);
+
+    if (token) {
+      try {
+        const response = await api.delete("/delete-your-product", {
+          token,
+          productId,
+        });
+
+        if (response.data.success) {
+          toast.success(response.data.message);
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    }
+  };
+
   return (
     <SellerProtected>
       <div id="your-product-screen">
@@ -46,6 +71,16 @@ const YourProduct = () => {
                   <h2>{product.name}</h2>
                   <h3>₹{product.price}</h3>
                   <p>{product.category}</p>
+                </div>
+                <div className="product-btn">
+                  <button
+                    onClick={() => navigateTo(`/edit-product/${product._id}`)}
+                  >
+                    Edit
+                  </button>
+                  <button onClick={() => deleteProduct(product._id)}>
+                    Delete
+                  </button>
                 </div>
               </div>
             ))

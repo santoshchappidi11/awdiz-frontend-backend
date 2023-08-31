@@ -85,9 +85,42 @@ export const getYourProducts = async (req, res) => {
   }
 };
 
+export const getEditProductData = async (req, res) => {
+  try {
+    const { productId, token } = req.body;
+
+    if (!token)
+      return res
+        .status(404)
+        .json({ success: false, message: "Token is required!" });
+
+    if (!productId)
+      return res
+        .status(404)
+        .json({ success: false, message: "ProductId is required!" });
+
+    const editProduct = await ProductModel.findById(productId);
+
+    if (!editProduct)
+      return res
+        .status(404)
+        .json({ success: false, message: "No Product Found!" });
+
+    return res.status(200).json({ success: true, product: editProduct });
+  } catch (error) {
+    return res.status(500).json({ success: false, error: error.message });
+  }
+};
+
 export const updateYourProduct = async (req, res) => {
   try {
-    const { productId, image, name, price, category, token } = req.body;
+    const { image, name, price, category } = req.body.editProductData;
+    const { productId, token } = req.body;
+
+    if (!productId)
+      return res
+        .status(404)
+        .json({ success: false, message: "Product Id is required" });
 
     if (!token)
       return res
@@ -110,7 +143,11 @@ export const updateYourProduct = async (req, res) => {
     );
 
     if (updatedProduct)
-      return res.status(200).json({ success: true, product: updatedProduct });
+      return res.status(200).json({
+        success: true,
+        product: updatedProduct,
+        message: "Product updated successfully!",
+      });
 
     return res.status(404).json({
       success: false,
@@ -123,10 +160,14 @@ export const updateYourProduct = async (req, res) => {
 
 export const deleteYourProduct = async (req, res) => {
   try {
-    const { token, productId } = req.body;
+    const { token } = req.body;
+    const { productId } = req.body;
+    console.log(token, productId);
 
     if (!token || !productId)
-      throw new Error("Token and Product Id is required!");
+      return res
+        .status(404)
+        .json({ success: false, message: "Token and Product Id is required!" });
 
     const decodedData = jwt.verify(token, process.env.JWT_SECRET);
 
@@ -138,10 +179,17 @@ export const deleteYourProduct = async (req, res) => {
     });
 
     if (isProductDeleted) {
-      return res.status(200).json({ success: true, product: isProductDeleted });
+      return res.status(200).json({
+        success: true,
+        product: isProductDeleted,
+        message: "Product Deleted!",
+      });
     }
 
-    throw new Error("MongoDB error!");
+    return res.status(404).json({
+      success: false,
+      message: "Something went wrong product not deleted!",
+    });
   } catch (error) {
     return res.status(500).json({ success: false, error: error.message });
   }

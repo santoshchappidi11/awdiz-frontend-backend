@@ -18,6 +18,7 @@ import {
   addRating,
   allProducts,
   deleteYourProduct,
+  getEditProductData,
   getYourProducts,
   updateYourProduct,
 } from "./Controllers/Product.controller.js";
@@ -46,7 +47,7 @@ import {
   unblockProduct,
   verifyProduct,
 } from "./Controllers/Admin.controller.js";
-import CheckJwt from "./Middlewares/CheckJwt.js";
+// import { CheckJwt } from "./Middlewares/CheckJwt.js";
 
 const app = express();
 app.use(express.json());
@@ -63,11 +64,14 @@ app.post("/get-current-user", getCurrentUser);
 app.post("/get-user-number", getUserNumber);
 app.post("/send-otp", sendOtp);
 app.post("/verify-otp", verifyOtp);
+app.get("/all-products", allProducts);
+
 app.post("/add-product", checkSeller, addProduct);
-app.get("/all-products", CheckJwt, allProducts);
 app.post("/get-your-products", checkSeller, getYourProducts);
+app.post("/get-editproduct-data", checkSeller, getEditProductData);
 app.patch("/update-your-product", checkSeller, updateYourProduct);
 app.delete("/delete-your-product", checkSeller, deleteYourProduct);
+
 app.post("/add-to-cart", addToCart);
 app.get("/get-cart-products", getCartProducts);
 app.delete("/remove-cart-product", removeCartProduct);

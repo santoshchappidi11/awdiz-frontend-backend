@@ -7,6 +7,7 @@ import Navbar from "./Components/Common/Navbar";
 import AddProduct from "./Components/Seller/AddProduct";
 import YourProduct from "./Components/Seller/YourProduct";
 import Profile from "./Components/Profile/Profile";
+import EditProduct from "./Components/Seller/EditProduct";
 
 function App() {
   return (
@@ -19,6 +20,11 @@ function App() {
         <Route exact path="/profile" element={<Profile />} />
         <Route exact path="/add-product" element={<AddProduct />} />
         <Route exact path="/your-products" element={<YourProduct />} />
+        <Route
+          exact
+          path="/edit-product/:productId"
+          element={<EditProduct />}
+        />
       </Routes>
     </div>
   );

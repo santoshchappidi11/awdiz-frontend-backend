@@ -63,11 +63,9 @@ export const Login = async (req, res) => {
         role: user.role,
       };
 
-      const expiryTime = user?.role == "Seller" ? "4h" : "1h";
+      // const expiryTime = user?.role == "Seller" ? "4h" : "10000";
 
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-        expiresIn: expiryTime,
-      });
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
 
       return res.json({
         success: true,

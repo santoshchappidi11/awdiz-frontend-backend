@@ -8,7 +8,7 @@ import api from "../ApiConfig";
 
 const Profile = () => {
   const { state } = useContext(AuthContexts);
-  console.log(state);
+  // console.log(state);
 
   const [number, setNumber] = useState("ex: 123456789");
   const [isNumberVerified, setIsNumberVerified] = useState(false);
