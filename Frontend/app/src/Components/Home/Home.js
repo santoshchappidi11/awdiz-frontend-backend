@@ -1,13 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Home.css";
-// import { useNavigate } from "react-router-dom";
-// import { AuthContexts } from "../../Context/AuthContext";
-// import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import api from "../ApiConfig/index";
 import { toast } from "react-hot-toast";
 
 const Home = () => {
-  // const { Logout } = useContext(AuthContexts);
+  const navigateTo = useNavigate();
   const [allProducts, setAllProducts] = useState([]);
 
   useEffect(() => {
@@ -35,7 +33,11 @@ const Home = () => {
         <div id="products">
           {allProducts?.length ? (
             allProducts?.map((product) => (
-              <div className="product" key={product._id}>
+              <div
+                className="product"
+                key={product._id}
+                onClick={() => navigateTo(`/single-product/${product._id}`)}
+              >
                 <div className="image">
                   <img src={product.image} alt="product" />
                 </div>

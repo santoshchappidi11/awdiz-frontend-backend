@@ -160,9 +160,8 @@ export const updateYourProduct = async (req, res) => {
 
 export const deleteYourProduct = async (req, res) => {
   try {
-    const { token } = req.body;
-    const { productId } = req.body;
-    console.log(token, productId);
+    const { token, productId } = req.body;
+    // console.log(token, productId);
 
     if (!token || !productId)
       return res
@@ -171,17 +170,19 @@ export const deleteYourProduct = async (req, res) => {
 
     const decodedData = jwt.verify(token, process.env.JWT_SECRET);
 
-    const userId = decodedData.userId;
+    const userId = decodedData?.userId;
 
     const isProductDeleted = await ProductModel.findOneAndDelete({
       _id: productId,
       userId: userId,
     });
 
+    const newProducts = await ProductModel.find({ userId: userId });
+    // console.log(newProducts);
     if (isProductDeleted) {
       return res.status(200).json({
         success: true,
-        product: isProductDeleted,
+        products: newProducts,
         message: "Product Deleted!",
       });
     }

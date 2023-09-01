@@ -8,6 +8,8 @@ import AddProduct from "./Components/Seller/AddProduct";
 import YourProduct from "./Components/Seller/YourProduct";
 import Profile from "./Components/Profile/Profile";
 import EditProduct from "./Components/Seller/EditProduct";
+import SingleProduct from "./Components/Buyer/SingleProduct";
+import Cart from "./Components/Buyer/Cart";
 
 function App() {
   return (
@@ -25,6 +27,12 @@ function App() {
           path="/edit-product/:productId"
           element={<EditProduct />}
         />
+        <Route
+          exact
+          path="/single-product/:singleProdId"
+          element={<SingleProduct />}
+        />
+        <Route exact path="/cart-products" element={<Cart />} />
       </Routes>
     </div>
   );

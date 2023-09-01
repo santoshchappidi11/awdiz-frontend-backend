@@ -38,12 +38,13 @@ const YourProduct = () => {
 
     if (token) {
       try {
-        const response = await api.delete("/delete-your-product", {
+        const response = await api.post("/delete-your-product", {
           token,
           productId,
         });
 
         if (response.data.success) {
+           setAllProducts(response.data.products);
           toast.success(response.data.message);
         } else {
           toast.error(response.data.message);

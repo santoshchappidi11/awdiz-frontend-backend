@@ -1,0 +1,76 @@
+#single-product {
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 80px 0 0 0;
+    /* border: 1px solid black; */
+  }
+  
+  #single-product > #product {
+    height: auto;
+    width: 50%;
+    /* margin: auto; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 5px 0px;
+    /* border: 1px solid rgb(224, 224, 224); */
+  }
+  
+  #single-product > #product > #img {
+    height: 300px;
+    width: 45%;
+  }
+  
+  #single-product > #product > #img > img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+  
+  #single-product > #product > #details {
+    padding-left: 55px;
+    text-align: left;
+    width: 50%;
+    /* border: 1px solid black; */
+  }
+  
+  #single-product > #product > #details > h2 {
+    font-weight: 600;
+  }
+  
+  #single-product > #product > #details > h3 {
+    color: rgb(46, 46, 46);
+    font-weight: 600;
+    margin: 5px 0 5px 0;
+  }
+  
+  #single-product > #product > #details > h4 {
+    font-weight: 600;
+    /* border: 1px solid red; */
+  }
+  
+  #single-product > #product > #details > h4 > span {
+    font-weight: 500;
+  }
+  
+  #single-product > #product > #details > p {
+    text-align: left;
+    /* border: 1px solid black; */
+  }
+  
+  #single-product > #product > #details > button {
+    border: none;
+    background: none;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 5px;
+    margin: 15px 0;
+    padding: 8px 22px;
+    cursor: pointer;
+    color: white;
+    background-color: rgb(59, 158, 190);
+  }
+  

@@ -36,7 +36,9 @@ const Navbar = () => {
               {state?.currentUser?.role})
             </p>
             <h4 onClick={() => navigateTo("/profile")}>Profile</h4>
-            {state?.currentUser?.role == "Buyer" && <h4>Cart</h4>}
+            {state?.currentUser?.role == "Buyer" && (
+              <h4 onClick={() => navigateTo("/cart-products")}>Cart</h4>
+            )}
             <h4 onClick={Logout}>Logout</h4>
           </>
         ) : (
