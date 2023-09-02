@@ -9,7 +9,20 @@ const Cart = () => {
   // const navigateTo = useNavigate();
   const { state } = useContext(AuthContexts);
   const [cartProducts, setCartProducts] = useState([]);
-  //   console.log(cartProducts);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    if (cartProducts?.length) {
+      let cartTotalPrice = 0;
+      for (let i = 0; i < cartProducts?.length; i++) {
+        console.log(cartProducts[i]);
+        cartTotalPrice += cartProducts[i]?.price;
+      }
+      setTotalPrice(cartTotalPrice);
+    }else{
+      setTotalPrice(0);
+    }
+  }, [cartProducts]);
 
   const removeProduct = async (productId) => {
     const token = JSON.parse(localStorage.getItem("Token"));
@@ -111,11 +124,11 @@ const Cart = () => {
                 <div id="details">
                   <div>
                     <h4>Total Price:</h4>
-                    <h4>₹{12}</h4>
+                    <h4>₹{totalPrice}</h4>
                   </div>
                   <div>
                     <h4>Discount(50%)</h4>
-                    <h4>₹{12 / 2}</h4>
+                    <h4>₹{totalPrice / 2}</h4>
                   </div>
                   <div>
                     <h4>Delivery Charges:</h4>
@@ -123,7 +136,7 @@ const Cart = () => {
                   </div>
                   <div>
                     <h2>TOTAL</h2>
-                    <h2>₹{12 / 2}</h2>
+                    <h2>₹{totalPrice / 2}</h2>
                   </div>
                 </div>
                 <div id="checkout">

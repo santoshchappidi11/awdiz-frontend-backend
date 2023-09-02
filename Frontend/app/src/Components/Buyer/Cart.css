@@ -55,12 +55,12 @@
 }
 
 #cart-screen > #cart-products > #left > #products > .product > .details > h3 {
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 600;
 }
 
 #cart-screen > #cart-products > #left > #products > .product > .details > h4 {
-  font-size: 20px;
+  font-size: 17px;
   margin: 10px 0 10px 0;
 }
 
@@ -94,7 +94,7 @@
 #cart-screen > #cart-products > #right > h3 {
   font-size: 22px;
   font-weight: 600;
-  margin: 10px 0;
+  margin: 0px 30px;
 }
 
 #cart-screen > #cart-products > #right > #price-summary {
