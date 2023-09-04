@@ -19,7 +19,7 @@ const Cart = () => {
         cartTotalPrice += cartProducts[i]?.price;
       }
       setTotalPrice(cartTotalPrice);
-    }else{
+    } else {
       setTotalPrice(0);
     }
   }, [cartProducts]);
@@ -68,7 +68,7 @@ const Cart = () => {
   useEffect(() => {
     const getCartProducts = async () => {
       const token = JSON.parse(localStorage.getItem("Token"));
-      console.log(token);
+      // console.log(token);
 
       if (token) {
         try {

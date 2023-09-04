@@ -61,6 +61,7 @@ export const Login = async (req, res) => {
         email: user.email,
         _id: user._id,
         role: user.role,
+        number: user?.number,
       };
 
       // const expiryTime = user?.role == "Seller" ? "4h" : "10000";
