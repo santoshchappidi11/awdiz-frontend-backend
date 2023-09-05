@@ -4,7 +4,7 @@ import axios from "axios";
 // console.log(token);
 
 const api = axios.create({
-  baseURL: "http://localhost:8002",
+  baseURL: "https://awdiz-backend.onrender.com/",
   // headers: { Authorization: `Bearer ${token}` },
 });
 
